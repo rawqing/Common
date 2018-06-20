@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 读写yaml文件
@@ -39,6 +40,7 @@ public class YamlRW {
         while (true) {
             Object contact = null;
             try {
+                assert reader != null;
                 contact = reader.read();
             } catch (YamlException e) {
                 e.printStackTrace();
@@ -48,5 +50,32 @@ public class YamlRW {
         }
         ymlPath = absolutePath;
         return list;
+    }
+
+    /**
+     * 从yml文件中读取一个map , 只会读取一个doc ,并且必须是map格式的
+     * @param absolutePath
+     * @return
+     */
+    public static Map readYamlMap(String absolutePath){
+        File file = new File(absolutePath);
+        try {
+            YamlReader reader = new YamlReader(new FileReader(file));
+            return reader.read(Map.class);
+        } catch (FileNotFoundException | YamlException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static <T> T readYamlInstance(String absolutePath ,Class<T> clz){
+        File file = new File(absolutePath);
+        try {
+            YamlReader reader = new YamlReader(new FileReader(file));
+            return reader.read(clz);
+        } catch (FileNotFoundException | YamlException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -36,6 +36,7 @@ public class ParamsListener implements IInvokedMethodListener, ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
+        log.debug("test start");
     }
 
     @Override
