@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Integrated station API testing" parallel="false" thread-count="1">
+    <listeners>
+        <listener class-name="yq.test.listener.ParamsListener"/>
+        <listener class-name="yq.test.listener.RetryListener"/>
+    </listeners>
+    <test name="default" thread-count="1" parallel="false">
+        <classes>
+            <class name="yq.test.test.RetryTest"/>
+        </classes>
+    </test>
+</suite>
