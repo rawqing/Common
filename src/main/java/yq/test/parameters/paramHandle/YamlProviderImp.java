@@ -74,7 +74,8 @@ public class YamlProviderImp implements IParametersProvider {
             if (yamlAnnot != null)  value = yamlAnnot.value();
         }
         if (ymlRootDir != null) {
-            value = ymlRootDir + File.separator + value;
+            if (!ymlRootDir.endsWith("/")) ymlRootDir = ymlFilePath + "/";
+            value = ymlRootDir + value;
         }
         System.out.println(String.format("yml file path : %s", value));
         return Objects.requireNonNull(this.getClass().getClassLoader().getResource(value)).getPath();

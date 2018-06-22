@@ -9,7 +9,8 @@ import yq.test.exception.AcceptableException;
 public class Retry implements IRetryAnalyzer {
     private Logger log = LoggerFactory.getLogger(Retry.class);
     private int retryCount = 1;
-    private int maxRetryCount = 3;
+    //当重试两次 , 加上本来执行的1次, 共计3次run
+    private int maxRetryCount = 2;
 
     @Override
     public boolean retry(ITestResult result) {
