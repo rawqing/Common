@@ -1,12 +1,16 @@
 buildscript {
     ext.kotlin_version = '1.2.30'
-    ext.mvn_local = "file://${System.getenv("HOMEDRIVE") }${System.getenv("HOMEPATH") }/.m2/repository"
+
+    ext.group_Id = "yq.test"
+    ext.artifact_Id = "common"
+    ext.ver = "1.0.1"
 
     repositories {
         jcenter()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.novoda:bintray-release:0.8.1'
     }
 }
 
@@ -16,17 +20,28 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'kotlin'
 apply plugin: 'maven'
+apply plugin: 'com.novoda.bintray-release'
 
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "${mvn_local}")
-            pom.groupId = "yq.test"
-            pom.version = "1.0.1"
-            pom.artifactId = 'common'
+            repository(url: "${mavenLocal().url}")
+            pom.groupId = "${group_Id}"
+            pom.artifactId = "${artifact_Id}"
+            pom.version = "${ver}"
         }
     }
 }
+publish {
+    userOrg = 'yqing'
+    groupId = "$group_Id"
+    artifactId = "$artifact_Id"
+    publishVersion = "$ver"
+    desc = 'yq.test 的公用项目.'
+    website = "https://github.com/rawqing/Common"
+}
+
+
 sourceCompatibility = 1.8
 
 repositories {
